@@ -43,6 +43,20 @@ SafeVision은 공장의 가스·화재를 카메라 영상과 센서로 함께 �
 
 ## 주요 구현 내용
 
+### STM32 전광판 통신 드라이버 (drivers/stm_uart_display)
+
+전광판 보드와의 UART 통신을 위한 저수준 드라이버 라이브러리를 직접 설계·구현했습니다.
+`termios` 기반 시리얼 포트 초기화(115200 8N1, raw 모드)부터 `[STX][Length][Command][Data...]
+[Checksum][ETX]` 패킷 조립·체크섬 계산까지 캡슐화해, 상위 코드(`server_main.cpp` 등)는
+`StmDisplayProtocol_SendEvacPath()` 같은 함수 호출 하나로 통신할 수 있도록 API를 설계했습니다.
+같은 드라이버를 `server_main.cpp`뿐 아니라 여러 독립 테스트 프로그램(`fire_uart_test.cpp`,
+`test_alert_uart.cpp`)에서도 공유해서 씁니다.
+
+- USB 케이블이 뽑혔다 다시 연결되는 상황을 감지해 파일 디스크립터를 재발급하는
+  `StmDisplayProtocol_Reconnect()`로 장애 복구를 처리했습니다.
+- `CMD_UPDATE` 전송 후 STM32가 보내는 ACK 응답을 체크섬까지 검증해 파싱하는
+  `StmDisplayProtocol_ReadAck()`를 구현해, 통신 성공 여부를 상위 코드가 확인할 수 있게 했습니다.
+
 ### 전광판 표시 로직 – 원인별 화면 전환
 
 판단 단계(경고 → 위험 → 비상)와 원인(화재 계열 / 가스 계열)에 따라 전광판(HUB75 LED 매트릭스)에
