@@ -1,7 +1,7 @@
 # SafeVision - 전광판 제어 및 TLS 통신 서버
 
-> 본 리포지토리는 **한화 VEDA 4기 팀 프로젝트 "SafeVision" (팀명: 대홍단감자)**의 일부로,
-> 5인 팀 프로젝트 중 제가 직접 설계·구현한 **전광판 펌웨어/드라이버**, **TLS 통신 서버**, **평면도 변환(OpenCV)** 부분만 추출하여 정리한 리포지토리입니다.
+> 본 리포지토리는 한화 VEDA 4기 팀 프로젝트 "SafeVision" (팀명: 대홍단감자)의 일부로,
+> 5인 팀 프로젝트 중 제가 직접 설계·구현한 전광판 펌웨어/드라이버, TLS 통신 서버, 평면도 변환(OpenCV) 부분만 추출하여 정리한 리포지토리입니다.
 >
 > 팀 프로젝트 전체 코드: [goodaehong/daehongdan](https://github.com/goodaehong/daehongdan)
 
